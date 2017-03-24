@@ -2,6 +2,7 @@ package com.company.test;
 
 import com.company.openglLessons.DisplayManager;
 import com.company.openglLessons.Renderer;
+import com.company.openglLessons.StaticShader;
 import com.company.openglLessons.model.Loader;
 import com.company.openglLessons.model.RawModel;
 import org.lwjgl.opengl.Display;
@@ -30,19 +31,25 @@ public class Main {
                 3,2,0
         };
 
+        StaticShader staticShader = new StaticShader();
+
 
         RawModel rawModel = loader.loadToVAO(vertices,indices);
 
         while (!Display.isCloseRequested()){
             renderer.prepare();
+            staticShader.start();
             renderer.render(rawModel);
+            staticShader.stop();
 
 
             DisplayManager.updateDisplay();
 
 
         }
+        staticShader.cleanUp();
         loader.clean();
+
         DisplayManager.closeDisplay();
     }
 }
