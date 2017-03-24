@@ -45,6 +45,8 @@ public abstract class ShaderProgram {
     }
 
     protected void bindAttribute(int attribute,String variableName){
+
+
         GL20.glBindAttribLocation(programId,attribute,variableName);
     }
 
@@ -65,8 +67,10 @@ public abstract class ShaderProgram {
     }
 
     private static int compileShader(String path, int type){
+
+        String source = loadFile(path);
         int shaderId = GL20.glCreateShader(type);
-        GL20.glShaderSource(shaderId,path);
+        GL20.glShaderSource(shaderId,source);
         GL20.glCompileShader(shaderId);
 
         if(GL20.glGetShaderi(shaderId,GL20.GL_COMPILE_STATUS) == GL11.GL_FALSE){
